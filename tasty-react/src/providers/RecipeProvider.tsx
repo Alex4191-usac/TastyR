@@ -2,15 +2,16 @@ import { useState } from "react";
 import RecipeContext from "@/context/RecipeContext";
 
 import React from "react";
+import Dish from "@/models/Dish";
 
 const RecipeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [recipes, setRecipes] = useState<string[]>([]);
+    const [recipes, setRecipes] = useState<Dish[]>([]);
 
-    const addRecipe = (recipe: string) => {
+    const addRecipe = (recipe: Dish) => {
         setRecipes((prevRecipes) => [...prevRecipes, recipe]);
     };
 
-    const removeRecipe = (recipe: string) => {
+    const removeRecipe = (recipe: Dish) => {
         setRecipes((prevRecipes) => prevRecipes.filter((r) => r !== recipe));
     };
 

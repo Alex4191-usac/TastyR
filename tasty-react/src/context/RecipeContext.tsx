@@ -1,10 +1,10 @@
+import Dish from "@/models/Dish";
 import { createContext } from "react";
-//import Dish from "@/models/Dish";
 
 interface RecipeContextType {
-  recipes: string[];
-  addRecipe: (recipe: string) => void;
-  removeRecipe: (recipe: string) => void;
+  recipes: Dish[];
+  addRecipe: (recipe: Dish) => void;
+  removeRecipe: (recipe: Dish) => void;
 
 }
 

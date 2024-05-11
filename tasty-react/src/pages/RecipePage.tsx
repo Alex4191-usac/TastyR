@@ -1,18 +1,29 @@
+import { useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom"
 import useMeal from "@/hooks/useMeal"
+import Dish from "@/models/Dish";
+import RecipeContext from "@/context/RecipeContext";
 import { GiKnifeFork  } from "react-icons/gi";
-import { FaArrowLeft } from "react-icons/fa";
-
-
+import { FaArrowLeft, FaHeart, FaShareAlt  } from "react-icons/fa";
 
 const RecipePage = () => {
   const { id } = useParams<{ id: string }>()
   const meal = useMeal(id ?? "")
   const navigate = useNavigate()
+  const {addRecipe} = useContext(RecipeContext)
+
+  const addFavorite = () => {
+    const dish: Dish = {
+      idMeal: meal?.idMeal ?? "",
+      strMeal: meal?.strMeal ?? "",
+      strMealThumb: meal?.strMealThumb ?? ""
+    }
+    addRecipe(dish);
+  }
 
   return (
     <section>
-      <div className="p-5 shadow-md rounded-lg">
+      <div className="pt-5 pl-8 pr-8 pb-5 shadow-md rounded-lg">
         <div className="flex justify-between ">
           <div className="flex-col">
           <h1 className="text-2xl font-bold">{meal?.strMeal}</h1>
@@ -27,8 +38,6 @@ const RecipePage = () => {
               ))
             }
           </div>
-            
-          
           </div>
           <div >
             <button 
@@ -41,8 +50,17 @@ const RecipePage = () => {
             </button>  
           </div>
         </div>
-        <div className="flex rounded-xl pt-5">
-          <div className="w-2/3 flex align items-center justify-center ">
+        <div className="flex rounded-xl pt-7  ">
+          <div className="w-2/3 flex justify-center  gap-5 ">
+            <div className="flex gap-3 flex-col ">
+              <button onClick={addFavorite} className="bg-rose-500 p-3 rounded-xl hover:bg-rose-400">
+                <FaHeart className="text-white" />
+              </button>
+              <button className="bg-slate-500 p-3 rounded-xl hover:bg-slate-400">
+                <FaShareAlt className="text-white" />
+              </button>
+
+            </div>
             <img src={meal?.strMealThumb} alt={meal?.strMeal} className="rounded-lg" />
           </div>
           <div className="w-1/3 ">
@@ -63,7 +81,7 @@ const RecipePage = () => {
             </div>
 
         </div>
-         <div className="pt-2 pr-5 pl-5 text-justify">
+         <div className="pt-2 mt-2 pr-5 pl-5 pb-2 text-justify bg-slate-100 rounded-xl">
           <h2 className="text-xl font-bold">
             Instructions:
           </h2>
