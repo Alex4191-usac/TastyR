@@ -12,7 +12,8 @@ const RecipeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
     };
 
     const removeRecipe = (recipe: Dish) => {
-        setRecipes((prevRecipes) => prevRecipes.filter((r) => r !== recipe));
+        const recipeId = recipe.idMeal;
+        setRecipes((prevRecipes) => prevRecipes.filter((recipe) => recipe.idMeal !== recipeId));
     };
 
     return (
