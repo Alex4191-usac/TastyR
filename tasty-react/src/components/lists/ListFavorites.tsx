@@ -1,9 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import RecipeContext from "@/context/RecipeContext";
 import Dish from '@/models/Dish';
 import { Link } from 'react-router-dom';
-import RecipeContext from "@/context/RecipeContext";
+
 import { FaTrash } from "react-icons/fa";
 import { GiCookingPot } from "react-icons/gi";
+import ConfirmationModal from '../ui/confirmationModal';
 
 
 interface ListRecipesProps {
@@ -12,12 +14,21 @@ interface ListRecipesProps {
   
 
 const ListFavorites: React.FC<ListRecipesProps> = ({ recipesList }) => {
-    
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [recipeToRemove, setRecipeToRemove] = useState<Dish | null>(null);
     const { removeRecipe } = useContext(RecipeContext);
 
     const handleRemoveRecipe = (recipe: Dish) => {
-        removeRecipe(recipe);
+        setRecipeToRemove(recipe);
+        setIsModalOpen(true);
     };
+
+    const handleConfirmRemove = () => {
+        if (recipeToRemove) {
+          removeRecipe(recipeToRemove);
+        }
+        setIsModalOpen(false);
+      };
 
     return (
         
@@ -42,6 +53,14 @@ const ListFavorites: React.FC<ListRecipesProps> = ({ recipesList }) => {
                     </div>
                 </div>
             ))}
+            {isModalOpen && (
+                <ConfirmationModal
+                    isOpen={isModalOpen}
+                    message="Are you sure you want to remove this recipe?"
+                    onConfirm={handleConfirmRemove}
+                    onCancel={() => setIsModalOpen(false)}
+                />
+            )}
         </div>
     );
 };
