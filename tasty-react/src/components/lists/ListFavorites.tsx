@@ -6,20 +6,18 @@ import { FaTrash } from "react-icons/fa";
 import { GiCookingPot } from "react-icons/gi";
 
 
-
-
 interface ListRecipesProps {
     recipesList: Dish[];
   }
   
 
 const ListFavorites: React.FC<ListRecipesProps> = ({ recipesList }) => {
+    
     const { removeRecipe } = useContext(RecipeContext);
 
     const handleRemoveRecipe = (recipe: Dish) => {
         removeRecipe(recipe);
     };
-
 
     return (
         
