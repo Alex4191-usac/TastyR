@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import useDishes from '@/hooks/useDishes';
 import DishItem from '../items/DishItem';
 import Pagination from './ListPagination'; // Import the Pagination component
+import SkeletonDishes from '@/pages/SkeletonDishes';
 
 interface ListDishesProps {
   selectedBadge: string;
@@ -30,7 +31,12 @@ const ListDishes: React.FC<ListDishesProps> = ({ selectedBadge }) => {
         {currentDishes ? (
           currentDishes.map(dish => <DishItem key={dish.idMeal} dish={dish} />)
         ) : (
-          'Loading...'
+          <>
+            <SkeletonDishes />
+            <SkeletonDishes />
+            <SkeletonDishes />
+            <SkeletonDishes />
+          </>
         )}
       </div>
       <Pagination

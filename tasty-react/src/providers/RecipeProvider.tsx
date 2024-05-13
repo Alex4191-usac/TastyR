@@ -8,6 +8,11 @@ const RecipeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
     const [recipes, setRecipes] = useState<Dish[]>([]);
 
     const addRecipe = (recipe: Dish) => {
+        const recipeId = recipe.idMeal;
+        const isAlreadyAdded = recipes.some((recipe) => recipe.idMeal === recipeId);
+        if (isAlreadyAdded) {
+            return;
+        }
         setRecipes((prevRecipes) => [...prevRecipes, recipe]);
     };
 
