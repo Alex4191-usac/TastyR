@@ -12,7 +12,7 @@ function Navbar() {
             <ul className="flex space-x-4">
                 <li onClick={()=> navigate("/my-recipes")} className="text-gray-600 cursor-pointer">
                     <GrNotes className=" inline-block  mr-1 " />   
-                   <p className=" inline-block  font-bold">My Recepies</p>               
+                   <p className=" inline-block  font-bold">My TastyList</p>               
                 </li>
                 
             </ul>
