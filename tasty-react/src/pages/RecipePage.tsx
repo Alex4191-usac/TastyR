@@ -78,7 +78,7 @@ const RecipePage = () => {
                   .filter(([key, value]) => key.startsWith("strIngredient") && value)
                   .map(([key, value], index) => (
                     <li key={index} className="p-1 ">
-                      * {value} - {meal[`strMeasure${key.slice(-1)}`]}
+                      * {value} - {meal?.[`strMeasure${key.slice(-1)}` as keyof typeof meal]}
                     </li>
                   ))}
               </ul>
