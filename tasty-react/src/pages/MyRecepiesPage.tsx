@@ -4,6 +4,7 @@ import RecipeContext from "@/context/RecipeContext";
 import ListFavorites from "@/components/lists/ListFavorites";
 import { FaArrowLeft } from "react-icons/fa";
 import Pagination from "@/components/lists/ListPagination";
+import EmptyFavorites from "@/components/items/EmptyFavorites";
 
 
 const MyRecepiesPage: React.FC = () => {
@@ -35,7 +36,7 @@ const MyRecepiesPage: React.FC = () => {
             </div>
             <div className=" flex flex-col items-center justify-center pt-5">
                 <h1 className="font-briem font-bold text-2xl pb-4">My Recipes</h1>
-                { recipes.length === 0 ? <p>No recipes yet :C</p> : <ListFavorites recipesList={currentDishes} />}
+                { recipes.length === 0 ? <EmptyFavorites/> : <ListFavorites recipesList={currentDishes} />}
             </div>
               {recipes.length > 0 && (
                 <Pagination

@@ -14,7 +14,7 @@ export const Home = () => {
     <div className="min-w-screen">
       <Navbar />   
       <Filter onBadgeClick={handleBadgeClick} selectedBadge={selectedBadge}/>
-      <h1 className="text-xl text-gray-500 font-semibold pl-5 mt-5">
+      <h1 className="text-lg text-gray-500 pl-8 mt-5">
         List of {selectedBadge} recepies :
       </h1>
       <ListDishes selectedBadge={selectedBadge} />
