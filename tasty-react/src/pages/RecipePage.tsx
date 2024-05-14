@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom"
 import useMeal from "@/hooks/useMeal"
 import Dish from "@/models/Dish";
@@ -10,7 +10,9 @@ const RecipePage = () => {
   const { id } = useParams<{ id: string }>()
   const meal = useMeal(id ?? "")
   const navigate = useNavigate()
-  const {addRecipe} = useContext(RecipeContext)
+  const {addRecipe, checkRecipe} = useContext(RecipeContext)
+
+
 
   const addFavorite = () => {
     const dish: Dish = {
@@ -20,6 +22,7 @@ const RecipePage = () => {
     }
     addRecipe(dish);
   }
+
 
   return (
     <section>
@@ -53,7 +56,7 @@ const RecipePage = () => {
         <div className="flex rounded-xl pt-7  ">
           <div className="w-2/3 flex justify-center  gap-5 ">
             <div className="flex gap-3 flex-col ">
-              <button onClick={addFavorite} className="bg-rose-500 p-3 rounded-xl hover:bg-rose-400">
+              <button onClick={addFavorite} className={`p-3 rounded-xl ${checkRecipe(id ?? "") ? 'bg-rose-500' : 'bg-black'} hover:bg-gray-400 `}>
                 <FaHeart className="text-white" />
               </button>
               <button className="bg-slate-500 p-3 rounded-xl hover:bg-slate-400">

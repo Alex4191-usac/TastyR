@@ -9,7 +9,7 @@ const RecipeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
     const addRecipe = (recipe: Dish) => {
         const recipeId = recipe.idMeal;
-        const isAlreadyAdded = recipes.some((recipe) => recipe.idMeal === recipeId);
+        const isAlreadyAdded = checkRecipe(recipeId);
         if (isAlreadyAdded) {
             return;
         }
@@ -21,8 +21,12 @@ const RecipeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
         setRecipes((prevRecipes) => prevRecipes.filter((recipe) => recipe.idMeal !== recipeId));
     };
 
+    const checkRecipe = (id: string) => {
+        return recipes.some((recipe) => recipe.idMeal === id);
+    };
+
     return (
-        <RecipeContext.Provider value={{ recipes, addRecipe, removeRecipe }}>
+        <RecipeContext.Provider value={{ recipes, addRecipe, removeRecipe, checkRecipe }}>
             {children}
         </RecipeContext.Provider>
     );
