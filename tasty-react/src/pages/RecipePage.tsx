@@ -1,16 +1,19 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom"
 import useMeal from "@/hooks/useMeal"
 import Dish from "@/models/Dish";
 import RecipeContext from "@/context/RecipeContext";
 import { GiKnifeFork  } from "react-icons/gi";
 import { FaArrowLeft, FaHeart, FaShareAlt  } from "react-icons/fa";
+import ShareModal from "@/components/ui/shareModal";
 
 const RecipePage = () => {
   const { id } = useParams<{ id: string }>()
   const meal = useMeal(id ?? "")
   const navigate = useNavigate()
   const {addRecipe, checkRecipe} = useContext(RecipeContext)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
 
 
 
@@ -22,6 +25,11 @@ const RecipePage = () => {
     }
     addRecipe(dish);
   }
+
+  const getlink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setIsModalOpen(false);
+  };
 
 
   return (
@@ -59,7 +67,7 @@ const RecipePage = () => {
               <button onClick={addFavorite} className={`p-3 rounded-xl ${checkRecipe(id ?? "") ? 'bg-rose-500' : 'bg-black'} hover:bg-gray-400 `}>
                 <FaHeart className="text-white" />
               </button>
-              <button className="bg-slate-500 p-3 rounded-xl hover:bg-slate-400">
+              <button onClick={()=> setIsModalOpen(true) } className="bg-slate-500 p-3 rounded-xl hover:bg-slate-400">
                 <FaShareAlt className="text-white" />
               </button>
 
@@ -93,6 +101,15 @@ const RecipePage = () => {
           <p className="pt-4 text-base">{meal?.strInstructions}</p>
          </div>
        </div>
+       {isModalOpen && (
+                <ShareModal
+                    isOpen={isModalOpen}
+                    location={window.location.href}
+                    message="Share this recipe with your friends!"
+                    onCopy={() => getlink()}
+                    onCancel={() => setIsModalOpen(false)}
+                />
+            )}
     </section>
   )
 }
